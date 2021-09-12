@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<title>AI4I Predictive Maintainance Dataset</title>
+ <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+
+
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+{% endblock %}
+
+{% block body %}
+
+<body style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+          <div class="navbar-header" style="padding: 1%;">
+              <h2 style="text-align: center;m-auto">AI4I Predictive Maintainance Dataset</h2>
+
+          </div>
+<!--          <ul class="nav navbar-nav navbar-center">-->
+<!--              <h2 style="text-align: center;">AI4I Predictive Maintainance Dataset</h2>-->
+<!--     </ul>-->
+
+        </div>
+      </nav>
+   <div class="container-fluid ">
+
+      <form  action="/predict" method="POST" class="form-horizontal">
+         <div class="row">
+            <div class="col-md-12">
+
+
+               <div class="row mt-4">
+                  <div class="col-md-4"> </div>
+                  <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="control-label col-md-5" for="Process temperature [K] ">Process temperature [K] </label>
+                        <div class="col-md-7">
+                           <input type="text" name="process_temp" id="process_temp" class="form-control" />
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label class="control-label col-md-5" for="Rotational speed [rpm]  ">Rotational speed [rpm]  </label>
+                        <div class="col-md-7">
+                           <input type="text" name="rotational_speed" id="rotational_speed" class="form-control" />
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label class="control-label col-md-5" for="Torque [Nm]"> Torque [Nm]
+                        </label>
+                        <div class="col-md-7">
+                           <input type="text" name="torque" id="torque" class="form-control" />
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label class="control-label col-md-5" for="Tool wear [min] "> Tool wear [min]
+                        </label>
+                        <div class="col-md-7">
+                           <input type="text" name="tool_wear" id="tool_wear" class="form-control" />
+                        </div>
+                     </div>
+
+
+                     <div class="form-group required row">
+                        <label class="control-label col-md-5" for="Tool wear failure ">Tool wear failure (TWF)</label>
+                        <div class="col-md-7">
+                           <select class="form-control" name="twf" id="twf">
+                            <option value="">--Select--</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                         </select>
+                        </div>
+                     </div>
+
+                     <div class="form-group required row">
+                        <label class="control-label col-md-5" for="Heat dissipation failure (HDF) ">Heat dissipation failure (HDF) </label>
+                        <div class="col-md-7">
+                           <select class="form-control" name="heat_dissipation" id="heat_dissipation">
+                            <option value="">--Select--</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        </div>
+                     </div>
+                     <div class="form-group required row">
+                        <label class="control-label col-md-5" for=" Power failure (PWF)">Power failure (PWF)
+                    </label>
+                        <div class="col-md-7">
+                           <select class="form-control" name="power_failure" id="power_failure">
+                            <option value="">--Select--</option>
+                             <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        </div>
+                     </div>
+                     <div class="form-group required row">
+                        <label class="control-label col-md-5" for=" Overstrain failure (OSF)">Overstrain failure (OSF)
+
+                    </label>
+                        <div class="col-md-7">
+                           <select class="form-control" name="Overstrain_failure" id="Overstrain_failure">
+                             <option value="">--Select--</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        </div>
+                     </div>
+                       <div class="form-group required row">
+                        <label class="control-label col-md-5" for=" Random failure (RNF)">Random failure (RNF)
+
+                    </label>
+                        <div class="col-md-7">
+                           <select class="form-control" name="Random_failure" id="Random_failure">
+                             <option value="">--Select--</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                        </div>
+                     </div>
+                     <div class="form-group required row">
+
+                          <input type="submit" class="btn btn-info btn-block" value="Predict">
+                     </div>
+
+                     </div>
+                  <div class="col-md-4">
+                     </div>
+
+                  </div>
+               </div>
+
+            </div>
+
+      </form>
+   </div>
+</body>
+{% endblock %}
